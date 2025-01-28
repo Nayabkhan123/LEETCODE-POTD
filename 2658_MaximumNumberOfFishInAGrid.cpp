@@ -16,6 +16,46 @@
 
 class Solution {
 public:
+    int n;
+    int m;
+    void f(int i,int j,vector<vector<int>>&grid,int &cnt){
+        vector<vector<int>>dirs={{-1,0},{0,1},{1,0},{0,-1}};
+        queue<pair<int,int>>q;
+        q.push({i,j});
+        while(!q.empty()){
+            int r = q.front().first;
+            int c = q.front().second;
+            cnt+=grid[r][c];
+            grid[r][c]=0;
+            q.pop();
+            for(int k=0;k<dirs.size();k++){
+                int newrow = r+dirs[k][0];
+                int newcol = c+dirs[k][1];
+                if(newrow>=0 && newrow<n && newcol>=0 && newcol<m && grid[newrow][newcol]){
+                    q.push({newrow,newcol});
+                }
+            }
+        }
+    }
+    int findMaxFish(vector<vector<int>>& grid) {
+        n=grid.size();
+        m=grid[0].size();
+        int cnt=0,ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cnt=0;
+                if(grid[i][j]){
+                    f(i, j, grid, cnt);
+                    ans=max(ans,cnt);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
     void f(int i,int j,vector<vector<int>>&grid,vector<vector<int>>&vis,int &cnt,vector<vector<int>>&dirs){
         int n=grid.size();
         int m=grid[0].size();
