@@ -10,6 +10,33 @@
 
 class Solution {
     public:
+        int digitSum(int num,vector<int>&mp,int &ans){
+            int rem=0,i=num;
+            while(i){
+                rem = rem + i%10;
+                i=i/10;
+            }
+            return rem;
+        }
+        int maximumSum(vector<int>& nums) {
+            int n=nums.size(),ans=-1;
+            vector<int>mp(82);
+            for(int i=0;i<n;i++){
+                int numSum = digitSum(nums[i],mp,ans);
+                if(mp[numSum]>0){
+                    ans = max(mp[numSum]+nums[i],ans);
+                    mp[numSum] = max(mp[numSum],nums[i]);
+                }
+                else{
+                    mp[numSum] = nums[i];
+                }
+            }
+            return ans;
+        }
+    };
+
+class Solution {
+    public:
         void digitSum(int num,unordered_map<int,vector<int>>&mp,int &ans){
             int rem=0,i=num;
             while(i){
