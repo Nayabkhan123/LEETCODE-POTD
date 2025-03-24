@@ -12,29 +12,18 @@ class Solution {
     public:
         int countDays(int days, vector<vector<int>>& meetings) {
             sort(meetings.begin(),meetings.end());
-            int lastDay=meetings[0][1],cnt=0,n=meetings.size();
+            int lastDay=meetings[0][1],cnt=meetings[0][0]-1;
     
-            for(int i=0;i<n-1;i++){
+            for(int i=0;i<meetings.size()-1;i++){
                 int b = meetings[i+1][0];
-                if(lastDay < b){
-                    cnt+=b-lastDay-1;
-                }
-                if(lastDay<meetings[i+1][1]){
-                    lastDay=meetings[i+1][1];
-                }
+                if(lastDay < b) cnt+=b-lastDay-1;
+                lastDay=max(lastDay,meetings[i+1][1]);
             }
-            if(meetings[0][0]!=1){
-                cnt+=meetings[0][0]-1;
-            }
-            if(meetings[n-1][1]!=days){
-                lastDay = lastDay>meetings[n-1][1]?lastDay:meetings[n-1][1];
-                cnt+=days-lastDay;
-            }
-            return cnt;
+            return cnt+days-lastDay;;
         }
-};
+    };
 
-    // timeComplexity: O(N) && spaceComplexity: O(N)  (N -> Days)
+// timeComplexity: O(N*Days) && spaceComplexity: O(Days)  
 class Solution {
     public:
         int countDays(int days, vector<vector<int>>& meetings) {
