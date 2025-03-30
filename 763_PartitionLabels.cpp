@@ -9,6 +9,27 @@
 
     Return a list of integers representing the size of these parts.
 */
+// optimized code
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        vector<int>c(26,0);
+        int n=s.size();
+        for(int i=0;i<n;i++){
+            c[s[i]-'a']=i;
+        }
+        vector<int>ans;
+        int last=0,prev=-1;
+        for(int i=0;i<n;i++){
+            last=max(last,c[s[i]-'a']);
+            if(last==i) {
+                ans.push_back(last-prev);
+                prev=last;
+            }
+        }
+        return ans;
+    }
+};
 
 class Solution {
     public:
