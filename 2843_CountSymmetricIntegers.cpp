@@ -18,10 +18,10 @@ public:
             if(n%2) continue;
             int firsthalf=0,secondhalf=0;
             for(int j=0;j<n/2;j++){
-                firsthalf += s_low[j];
+                firsthalf += s_low[j] - '0';
             }
             for(int j=n/2;j<n;j++){
-                secondhalf += s_low[j];
+                secondhalf += s_low[j] - '0';
             }
             if(firsthalf == secondhalf) cnt++;
         }
